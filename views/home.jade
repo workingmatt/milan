@@ -5,25 +5,46 @@ html
       script(src="jquery.min.js")
       script(src="/socket.io/socket.io.js")
       script(src="script.js")
+      script(src="masonry.pkgd.js")
+      script(src="imagesloaded.pkgd.js")
+      style
+         body {
+            font-family: Verdana;
+            font-size: 13px;
+            background: #eee;
+         }
+         .item {
+            width: 60px;
+            float: left;
+         }
+         img {
+            width: 128px;
+            height: 68;
+         }
    body
       div.container
          header
-            h1 A Chat application with Node.js and Socket.io
-         input(type='text')#pseudoInput
-         button#pseudoSet Set Pseudo
-         button#audio Play Audio
+            h1 A responsive and animated grid layout
+         div#thegrid
+            div.item
+             img(src='images/1.png', width='256px')
+            div.item
+             img(src='images/2.png')
+            div.item
+             img(src='images/3.png')
+            div.item
+             img(src='images/4.png')
+            div.item
+             img(src='images/5.png')
+         div#pseudoControls
+            input(type='text')#pseudoInput
+            button#pseudoSet Set Pseudo
+            button#audio Play Audio
          div#chatEntries
          div#chatControls
             input(type='text')#messageInput
             button#submit Send
          div#imageDisplay
-            'Hello World'
 
-         //script//playSound('sounds/foghorn.wav');
-         //showImage('http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2010/5/20/1274352435003/Dog-poo-2-002.jpg');
-
-         //img(src="jum.png")
-         //img(src="jum.png",border=0,width=400,height=300)
-//            | <img src="beardy.jpg" alt="alt" />
 //      script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
          
