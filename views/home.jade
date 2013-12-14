@@ -2,7 +2,7 @@ doctype 5
 html
    head
       title Chat
-      script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+      script(src="jquery.min.js")
       script(src="/socket.io/socket.io.js")
       script(src="script.js")
    body
@@ -11,10 +11,19 @@ html
             h1 A Chat application with Node.js and Socket.io
          input(type='text')#pseudoInput
          button#pseudoSet Set Pseudo
+         button#audio Play Audio
          div#chatEntries
          div#chatControls
             input(type='text')#messageInput
             button#submit Send
          div#imageDisplay
-            img(src="jum.png",border=0,width=400,height=300)
-            | <img src="beardy.jpg" alt="alt" />
+            'Hello World'
+
+         //script//playSound('sounds/foghorn.wav');
+         //showImage('http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2010/5/20/1274352435003/Dog-poo-2-002.jpg');
+
+         //img(src="jum.png")
+         //img(src="jum.png",border=0,width=400,height=300)
+//            | <img src="beardy.jpg" alt="alt" />
+//      script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+         
