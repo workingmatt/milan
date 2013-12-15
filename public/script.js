@@ -85,40 +85,34 @@ $(function() {
   //$("#thegrid").ready(function() {showImage('images/beardygrin.jpg', "#thegrid")});
   //$("thegrid").gridalicious('append', boxes)
   
-  
+
   //** The Grid
- imagesLoaded('#thegrid', function() {
+ for(i=0;i<18;i++){
+    var imgInc = document.createElement("img");
+    var imgStr = "images/"+(i+1)+".png";
+    var newDiv = $('#thegrid').append($('<div/>', { 'class': 'item'}));
+
+    imgInc.src = (imgStr);
+    imgInc.alt = ('imgStr');
+    imgInc.width = 256/(1+(i%4));
+    console.log("imgInc width: "+imgInc.width +"i%4"+(i%4));
+    
+    $(newDiv).prepend(imgInc);
+ 
+    console.log("image is: "+imgInc.src);
+
+  }
+  imagesLoaded('#thegrid', function() {
   console.log("Got to images Loades");
     $('#thegrid').masonry({
       itemSelector: 'item',
-      columnWidth: 126,
-      gutter: 1
+      columnWidth: 64,
+      gutter: 0
     });
     console.log("grid options done");
  })
   
   $('#thegrid').masonry();
-  //var msnry = new Masonry( $('#thegrid'), {
-  //  itemSelector: 'item',
-  //  columnWidth: 70
-  //});
-  //var msnry = new Masonry('#thegrid');
-
-  //var thegrid = document.querySelector('#thegrid');
-  //var msnry = new Masonry( thegrid, {
-  //  columnWidth: 600,
-  //  itemSelector: '.item'
-  //});
-  
-    //$thegrid.loaded(function() {
-  //  $thegrid.masonry({
-  //    itemSelector: '.masonryImage',
-  //    columnWidth: 100
-  //  });
-  //});
-
-  //var msnry = $thegrid.data('masonry');
-  //console.log("msnry: "+ msnry);
   
    //.append(('<img id="theImg2" src="images/2.png"/>'))
    //.addItems(('<img id="theImg3" src="images/3.png"/>'));

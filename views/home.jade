@@ -14,28 +14,26 @@ html
             background: #eee;
          }
          .item {
-            width: 60px;
+            width: 64px;
             float: left;
          }
-         img {
+         .item.w2 {
             width: 128px;
-            height: 68;
+            float: left;
+         }
+         .item.w4 {
+            width: 256px;
+            float: left;
+         }
+
+         img {
+
          }
    body
       div.container
          header
             h1 A responsive and animated grid layout
          div#thegrid
-            div.item
-             img(src='images/1.png', width='256px')
-            div.item
-             img(src='images/2.png')
-            div.item
-             img(src='images/3.png')
-            div.item
-             img(src='images/4.png')
-            div.item
-             img(src='images/5.png')
          div#pseudoControls
             input(type='text')#pseudoInput
             button#pseudoSet Set Pseudo
@@ -48,3 +46,14 @@ html
 
 //      script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
          
+
+            div.item
+             img(src='images/1.png', width='256px' float='left')
+            div.item
+             img(src='images/2.png' width='64px' float='left')
+            div.item
+             img(src='images/3.png' width='128px' float='left')
+            div.item
+             img(src='images/4.png' width='64px' float='left')
+            div.item
+             img(src='images/5.png' width='64px' float='left')
