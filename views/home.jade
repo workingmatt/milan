@@ -1,17 +1,25 @@
 doctype 5
 html
    head
-      title Chat
+      title Milan
+      meta(name="viewport" content="width=device-width, height=device-height, initial-scale=1.0")
       script(src="jquery.min.js")
       script(src="/socket.io/socket.io.js")
       script(src="script.js")
       script(src="masonry.pkgd.js")
       script(src="imagesloaded.pkgd.js")
       style
+         thegrid {
+         }
+
          body {
             font-family: Verdana;
             font-size: 13px;
-            background: #eee;
+            background: #000;
+         }
+         
+         h1 {
+            color: white;
          }
          .item {
             width: 64px;
@@ -27,12 +35,15 @@ html
          }
 
          img {
-
          }
+
+
    body
       div.container
          header
-            h1 A responsive and animated grid layout
+
+         div#gridcontrol
+            button#removeImage Remove Image
          div#thegrid
          div#pseudoControls
             input(type='text')#pseudoInput
@@ -45,15 +56,6 @@ html
          div#imageDisplay
 
 //      script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
-         
+//            h1 A responsive and animated grid layout         
 
-            div.item
-             img(src='images/1.png', width='256px' float='left')
-            div.item
-             img(src='images/2.png' width='64px' float='left')
-            div.item
-             img(src='images/3.png' width='128px' float='left')
-            div.item
-             img(src='images/4.png' width='64px' float='left')
-            div.item
-             img(src='images/5.png' width='64px' float='left')
+ 

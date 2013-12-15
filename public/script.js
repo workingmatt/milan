@@ -10,7 +10,6 @@
 //        playSound(sound source)
 // init function
 
-
 var socket = io.connect();
 
 // **Chat functions
@@ -71,6 +70,26 @@ function playSound(sndSrc) {
   console.log("playSound: " + sndSrc);
 }
 
+//** Grid Functions
+function addImage(imgStr, inc) {
+    var imgInc = document.createElement("img");
+    //var newDiv = $('#thegrid').append($('<div/>', { 'id': 'item'+i}));
+    //console.log("newDiv: ", newDiv);
+    imgInc.src = (imgStr);
+    imgInc.alt = ('imgStr');
+    imgInc.width = 256/(1+(i%4));
+    console.log(i);
+    //console.log("imgInc width: "+imgInc.width +"i%4"+(i%4));
+    $('<div id="item.w">')
+      .append(imgInc)
+      .appendTo('#thegrid');
+  }
+
+function removeImage(imgStr) {
+  console.log("goodbye cowboy:"+imgStr);
+  $('#thegrid div:last-child').remove();
+  //TODO match imgStr
+}
 //init function fired once page loaded
 //hide chat controls 2 button listeners
 $(function() {
@@ -83,38 +102,29 @@ $(function() {
   //$("#audio").click(function() {showImage('images/jum.png', '#imageDisplay')});
   //$("#imageDisplay").ready(function() {showImage('images/beardygrin.jpg', '#imageDisplay')});
   //$("#thegrid").ready(function() {showImage('images/beardygrin.jpg', "#thegrid")});
-  //$("thegrid").gridalicious('append', boxes)
-  
+  $('#removeImage').click(function() {removeImage('images/1.png')});
 
   //** The Grid
- for(i=0;i<18;i++){
-    var imgInc = document.createElement("img");
-    var imgStr = "images/"+(i+1)+".png";
-    var newDiv = $('#thegrid').append($('<div/>', { 'class': 'item'}));
+  $(document).ready(function(){
+    $('#container').height($(window).height());
+  });
 
-    imgInc.src = (imgStr);
-    imgInc.alt = ('imgStr');
-    imgInc.width = 256/(1+(i%4));
-    console.log("imgInc width: "+imgInc.width +"i%4"+(i%4));
-    
-    $(newDiv).prepend(imgInc);
- 
-    console.log("image is: "+imgInc.src);
+for(i=0;i<18;i++){
+  var imgStr = "images/"+(i+1)+".png";
+  addImage(imgStr, i);
+}
 
-  }
-  imagesLoaded('#thegrid', function() {
-  console.log("Got to images Loades");
-    $('#thegrid').masonry({
-      itemSelector: 'item',
-      columnWidth: 64,
-      gutter: 0
-    });
-    console.log("grid options done");
- })
+var containerWidth = $(window).width();
+console.log("containerWidth: "+containerWidth);
+
+imagesLoaded('#thegrid', function() {
+  $('#thegrid').masonry({
+    itemSelector: 'item',
+    columnWidth: (containerWidth/50),
+    gutter: -4
+  });
+})
   
   $('#thegrid').masonry();
-  
-   //.append(('<img id="theImg2" src="images/2.png"/>'))
-   //.addItems(('<img id="theImg3" src="images/3.png"/>'));
-});
+});//end of init function
 
