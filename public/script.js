@@ -120,8 +120,8 @@ console.log("containerWidth: "+containerWidth);
 imagesLoaded('#thegrid', function() {
   $('#thegrid').masonry({
     itemSelector: 'item',
-    columnWidth: (containerWidth/50),
-    gutter: -4
+    columnWidth: (1/3),//(containerWidth/50),
+    gutter: -0
   });
 })
   
