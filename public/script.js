@@ -10,6 +10,7 @@
 //        playSound(sound source)
 // init function
 
+var imgCount = 0;
 var socket = io.connect();
 
 // **Chat functions
@@ -90,7 +91,9 @@ function removeImage(imgStr) {
   $('#thegrid div:last-child').remove();
   //TODO match imgStr
 }
-//init function fired once page loaded
+
+
+//** init function fired once page loaded
 //hide chat controls 2 button listeners
 $(function() {
   var $thegrid = $("#thegrid");
@@ -109,7 +112,7 @@ $(function() {
     $('#container').height($(window).height());
   });
 
-for(i=0;i<18;i++){
+for(i=0;i<31;i++){
   var imgStr = "images/"+(i+1)+".png";
   addImage(imgStr, i);
 }
