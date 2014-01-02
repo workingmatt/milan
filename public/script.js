@@ -1,46 +1,25 @@
 //  Functions:
-//  **Chat
-//        addMessage: a helper functions used by other scripts in this file
-//        sentMessage: send a message
-//        setPseudo: set user's pseudonym, send it to the server, show chat controls, hide pseudo bits
-//        listen to socket for message event (incoming messages from other clients
-//
+
 //  **Media Functions
 //        showImage(imgSrc, #divName)
-//        playSound(sound source)
 // init function
 
 var imgCount = 0;
 var socket = io.connect();
 
-// **Chat functions
-function addMessage(msg, pseudo) {
-  $("#chatEntries").append('<div class="message"><p>' + pseudo + ' : ' + msg + '</p></div>');
-}
-
-function sentMessage() {
-  if ($('#messageInput').val() != "") {
-    socket.emit('message', $('#messageInput').val());
-    addMessage($('#messageInput').val(), "Me", new Date().toISOString(), true);
-    $('#messageInput').val('');
+function preLoader() {
+  //Create image object. Sequentially set the object's src to the different images
+  //This puts them in the cache.
+  var i = 0;
+  imageObj = new Image();
+  for(i=0; i<31; i++) {
+    //images[i] = "images/"+(i+1)+".png";
+    imageObj.src="images/"+(i+1)+".png";
+    imageObj.width = 256/(1+(i%4));
+    //imageObj.width=
+    //imagObj.height=
   }
 }
-
-function setPseudo() {
-  if ($("pseudoInput").val() != "") {
-    socket.emit('setPseudo', $("#pseudoInput").val());
-    $('#chatControls').show();
-    $('#pseudoInput').hide();
-    $('#pseudoSet').hide();
-    console.log("script.js pseudo is: " + $("#pseudoInput").val());
-  }
-}
-
-//Like the server side receive incoming messages
-socket.on('message', function(data) {
-  addMessage(data['message'], data['pseudo']);
-});
-
 
 // **Mediafunctions
 
@@ -67,9 +46,6 @@ function showImage(imgSrc, divName) {
     //console.log("showImg: " + img.src + " w: " + browserWidth + " h: " + browserHeight);
 }
 
-function playSound(sndSrc) {
-  console.log("playSound: " + sndSrc);
-}
 
 //** Grid Functions
 function addImage(imgStr, inc) {
@@ -79,7 +55,7 @@ function addImage(imgStr, inc) {
     imgInc.src = (imgStr);
     imgInc.alt = ('imgStr');
     imgInc.width = 256/(1+(i%4));
-    console.log(i);
+    //console.log(i);
     //console.log("imgInc width: "+imgInc.width +"i%4"+(i%4));
     $('<div id="item.w">')
       .append(imgInc)
@@ -87,26 +63,19 @@ function addImage(imgStr, inc) {
   }
 
 function removeImage(imgStr) {
-  console.log("goodbye cowboy:"+imgStr);
+  console.log("goodbye cowboy: "+imgStr);
   $('#thegrid div:last-child').remove();
   //TODO match imgStr
 }
 
 
 //** init function fired once page loaded
-//hide chat controls 2 button listeners
 $(function() {
   var $thegrid = $("#thegrid");
-  $("#chatControls").hide();
-  $("#pseudoControls").hide();
-  //$("#pseudoSet").click(function(e) {setPseudo();});
-  //$("#submit").click(function() {sentMessage();});
-  //$("#audio").click(function() {playSound('sounds/foghorn.wav');});
-  //$("#audio").click(function() {showImage('images/jum.png', '#imageDisplay')});
+  preLoader();
   //$("#imageDisplay").ready(function() {showImage('images/beardygrin.jpg', '#imageDisplay')});
   //$("#thegrid").ready(function() {showImage('images/beardygrin.jpg', "#thegrid")});
   $('#removeImage').click(function() {removeImage('images/1.png')});
-
   //** The Grid
   $(document).ready(function(){
     $('#container').height($(window).height());

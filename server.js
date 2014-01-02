@@ -16,6 +16,9 @@ app.configure(function() {
 app.get('/', function(req, res){
     res.render('home.jade');
 });
+app.get('/sausage', function(req, res){
+  res.render('sausage.jade');
+});
 server.listen(3000);
 
 //https://github.com/visionmedia/express/wiki/Migrating-from-2.x-to-3.x
