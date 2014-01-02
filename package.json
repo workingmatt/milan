@@ -1,0 +1,24 @@
+{
+  "name": "milan-second-screen",
+  "version": "1.0.0",
+  "author": "Chanza Chanzo Ltd. <support@chanzachanzo.com>",
+  "description": "A node Masonry server for images. Created for Cisco special project",
+  "contributors": [
+    {
+      "name": "Matt Mapleston",
+      "email": "matt@chanzachanzo.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/workingmatt/milan.git"
+    },
+  "dependencies": {
+    "express": "3.4.7",
+    "jade": "1.0.2",
+    "socket.io": "0.9.16"
+  },
+  "scripts": {
+    "start": "./server.js"
+  }
+}

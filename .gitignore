@@ -1,0 +1,2 @@
+#Node modules to be installed with npm install using package.json
+node_modules/
