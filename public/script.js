@@ -22,22 +22,14 @@ function preLoader() {
 }
 
 // **Mediafunctions
-
-//showImage pseudo code:
-// call a function passing an image - done.
-// get image aspect ratio (width/height)
-// get window dimensions and calculate aspect ratio
-// if browser is too wide, set image height to browser height and image width = height * aspect ratio
-// if browser is too thin, set image width to browser width and image height = width/aspect ratio
-// 
 function showImage(imgSrc, divName) {
     var img = document.createElement("img");
     browserWidth = $(window).width();
     browserHeight= $(window).height();
-    //var aspectRatio = browserWidth/browserHeight;
+    
     img.src = imgSrc;
     img.width = browserWidth;
-    img.height = browserHeight;//$(window).height();//browserHeight;
+    //img.height = browserWidth/aspect;//browserHeight;//$(window).height();//browserHeight;
     img.alt = "alt text";
 
     //$("#imageDisplay").prepend("<img id='theImg' src='images/jum.png'/>"); 
@@ -71,33 +63,43 @@ function removeImage(imgStr) {
 
 //** init function fired once page loaded
 $(function() {
-  var $thegrid = $("#thegrid");
+  $('#bgwash').height($(window).height()/10);
+  $('#bgimage').height($(window).height());
+  var containerWidth = $(window).width();
+
   preLoader();
-  //$("#imageDisplay").ready(function() {showImage('images/beardygrin.jpg', '#imageDisplay')});
-  //$("#thegrid").ready(function() {showImage('images/beardygrin.jpg', "#thegrid")});
+
   $('#removeImage').click(function() {removeImage('images/1.png')});
   //** The Grid
   $(document).ready(function(){
     $('#container').height($(window).height());
+    $('#bgimage').height($(window).height());
   });
 
+//add images to #thegrid with id item.w
 for(i=0;i<2;i++){
   var imgStr = "images/"+(i+1)+".png";
   addImage(imgStr, i);
 }
 
-var containerWidth = $(window).width();
-console.log("containerWidth: "+containerWidth);
-
+//once images are loaded use masonry to show anything with id=item
 imagesLoaded('#thegrid', function() {
   $('#thegrid').masonry({
     itemSelector: 'item',
     columnWidth: (1/3),//(containerWidth/50),
     gutter: -0
   });
+  $("#bgimage").ready(function(){showImage('/images/bkgd.png', "#bgimage")});
 })
   
   $('#thegrid').masonry();
 
+  //$("#bgimage").ready(function(){showImage('/images/bkgd.png', "#bgimage")});
+  $("#bgimage").delay(10*1000).animate({opacity: 1}, 5000);
+
+
 });//end of init function
 
+
+  //$("#imageDisplay").ready(function() {showImage('images/beardygrin.jpg', '#imageDisplay')});
+    //$("#bgimage").css({zIndex: 1});
