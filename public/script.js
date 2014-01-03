@@ -60,6 +60,17 @@ function removeImage(imgStr) {
   //TODO match imgStr
 }
 
+//smooth the resize to stop continuous triggers while resizing window
+function debouncer( func , timeout ) {
+   var timeoutID , timeout = timeout || 200;
+   return function () {
+      var scope = this , args = arguments;
+      clearTimeout( timeoutID );
+      timeoutID = setTimeout( function () {
+          func.apply( scope , Array.prototype.slice.call( args ) );
+      } , timeout );
+   }
+}
 
 //** init function fired once page loaded
 $(function() {
@@ -72,8 +83,9 @@ $(function() {
   $('#removeImage').click(function() {removeImage('images/1.png')});
   //** The Grid
   $(document).ready(function(){
-    $('#container').height($(window).height());
+    $('#bgwash').height($(window).height());
     $('#bgimage').height($(window).height());
+    $('#container').height($(window).height());
   });
 
 //add images to #thegrid with id item.w
@@ -90,12 +102,22 @@ imagesLoaded('#thegrid', function() {
     gutter: -0
   });
   $("#bgimage").ready(function(){showImage('/images/bkgd.png', "#bgimage")});
+  $("#bgimage").css({top: '10%'});
+  $("#bgimage").delay(1*1000).animate({opacity: 1}, 1000);
 })
   
   $('#thegrid').masonry();
 
-  //$("#bgimage").ready(function(){showImage('/images/bkgd.png', "#bgimage")});
-  $("#bgimage").delay(10*1000).animate({opacity: 1}, 5000);
+  $(window).resize(debouncer(function(){
+    console.log("window resized Matt!");
+    $("#bgimage").css({opacity: 0});
+    $('#bgimage img:last-child').delay(300).remove();
+
+    showImage('/images/bkgd.png', "#bgimage");
+
+    $("#bgimage").css({top: '10%'});
+    $("#bgimage").delay(1*1000).animate({opacity: 1}, 1000);
+  }));
 
 
 });//end of init function
