@@ -9,15 +9,19 @@ html
       script(src="masonry.pkgd.js")
       script(src="imagesloaded.pkgd.js")
       style.
-         thegrid {
-         }
-
+         
          body {
             font-family: Verdana;
             font-size: 13px;
-            background: #000;
-         }
+            background: url(/images/bkgd.png) no-repeat rgb(30,30,30) fixed top center;
+            background-size: contain;
          
+         }
+
+         thegrid {
+
+         }
+
          h1 {
             color: white;
          }
@@ -33,7 +37,6 @@ html
    body
       div.container
          header
-
          div#gridcontrol
             button#removeImage Remove Image
             button#helloBtn Hello!

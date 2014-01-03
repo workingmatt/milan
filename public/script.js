@@ -54,7 +54,7 @@ function addImage(imgStr, inc) {
     //console.log("newDiv: ", newDiv);
     imgInc.src = (imgStr);
     imgInc.alt = ('imgStr');
-    imgInc.width = 256/(1+(i%4));
+    imgInc.width = 128/(1+(inc%4));
     //console.log(i);
     //console.log("imgInc width: "+imgInc.width +"i%4"+(i%4));
     $('<div id="item.w">')
@@ -81,7 +81,7 @@ $(function() {
     $('#container').height($(window).height());
   });
 
-for(i=0;i<31;i++){
+for(i=0;i<2;i++){
   var imgStr = "images/"+(i+1)+".png";
   addImage(imgStr, i);
 }
@@ -98,5 +98,6 @@ imagesLoaded('#thegrid', function() {
 })
   
   $('#thegrid').masonry();
+
 });//end of init function
 
