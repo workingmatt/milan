@@ -72,6 +72,11 @@ function debouncer( func , timeout ) {
    }
 }
 
+socket.on('message', function(){
+  console.log("client just got a message");
+  removeImage('images/1.png');
+});
+
 //** init function fired once page loaded
 $(function() {
   $('#bgwash').height($(window).height()/10);
@@ -89,7 +94,7 @@ $(function() {
   });
 
 //add images to #thegrid with id item.w
-for(i=0;i<2;i++){
+for(i=0;i<31;i++){
   var imgStr = "images/"+(i+1)+".png";
   addImage(imgStr, i);
 }

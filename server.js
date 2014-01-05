@@ -5,6 +5,7 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 var jade = require('jade');
 var clients = [];
+var sausage = require('./sausage');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -16,9 +17,8 @@ app.configure(function() {
 app.get('/', function(req, res){
     res.render('home.jade');
 });
-app.get('/sausage', function(req, res){
-  res.render('sausage.jade');
-});
+
+app.use(sausage);
 server.listen(3000);
 
 //https://github.com/visionmedia/express/wiki/Migrating-from-2.x-to-3.x
@@ -29,30 +29,25 @@ io.sockets.on('connection', function (socket) {
   clients.push(socket);
 
   //communicate with one client by using socket instead of sockets
-  socket.on('setPseudo', function(data) {
-    socket.set('pseudo', data);
-    console.log("setPseudo: "+data);
-  });
-
   socket.on('message', function (message) {
-   socket.get('pseudo', function (error, name) {
-      var data = { 'message' : message, pseudo : name };
-      socket.broadcast.emit('message', data);
-      console.log("user " + name + " send this : " + message);
-   })
+    console.log("server received message: "+message);
+    socket.broadcast.emit('message', message);
   });
 
   socket.on('disconnect', function() {
     console.log("closing socket: " + socket.id);
+    //list clients to console
     for(var i=0; i<clients.length; i++){
       console.log("clients["+i+"]: " + clients[i].id);
     }
+    //remove the client that sent the message
     for(var i=0; i<clients.length; i++){
       if(clients[i] == socket) {
         clients.splice(i,1);
         break;
       }
     }
+    //list the clients again
     for(var i=0; i<clients.length; i++){
       console.log("new clients["+i+"]: " + clients[i].id);
     }
