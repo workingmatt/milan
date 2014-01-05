@@ -1,15 +1,24 @@
 var socket = io.connect();
 
 //function for button on sausage page
-function sausageSqueeze(){
-	console.log("sausageSqueeze pressed");
-	$('#sausage').append("Matt's Message about poo");
-	socket.emit('message', "socketSausageMessage");
+function sausageSqueeze(num){
+	console.log("sausageSqueeze"+num+" pressed");
+	$('#sausage').append(".");
+	socket.emit('message');
 }
 
 //beginning of init function
 $(function(){
 
-$('#sausageBtn').click(function(){sausageSqueeze();});
+$('#sausageBtn0').click(function(){sausageSqueeze(1);});
 
+$('#sausageBtn1').click(function(){sausageSqueeze(1);});
+$('#sausageBtn2').click(function(){sausageSqueeze(2);});
+$('#sausageBtn3').click(function(){sausageSqueeze(3);});
+$('#sausageBtn4').click(function(){sausageSqueeze(4);});
+$('#sausageBtn5').click(function(){sausageSqueeze(5);});
+$('#sausageBtn6').click(function(){sausageSqueeze(6);});
+$('#sausageBtn7').click(function(){sausageSqueeze(7);});
+$('#sausageBtn8').click(function(){sausageSqueeze(8);});
+$('#sausageBtn9').click(function(){sausageSqueeze(9);});
 }); //end of init function

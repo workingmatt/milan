@@ -9,20 +9,67 @@ html
       script(src="imagesloaded.pkgd.js")
 
       style.
-        html body {
-           font-family: Verdana;
-           font-size: 13px;
-           width: 100%;
-           padding: 0;
-           margin: 0;
-           border: 0;
-        }
+         html body {
+            font-family: Verdana;
+            font-size: 20px;
+            color: rgb(220, 220, 220);
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            border: 0;
+            background-color: rgb(30, 30, 30);
+         }
 
+         .btn {
+            background-color: rgb(130,130,130);
+            border-radius: 11px;
+            border: 3px solid rgb(255, 255, 0);
+            color: rgb(230,230,0);
+            padding: 16px 31px;
+            margin: 16px 31px;
+            font-size: 20px;
+         }
+
+         table  {
+            width: 100%
+            
+         }
+
+         td {
+            border: 0px solid rgb(255, 255, 255);
+            text-align: center;
+         }
 
    body
       div.container
          header
          div#sausage
-           button#sausageBtn sausagesJan!
+            table
+               tbody
+                  tr
+                     td(colspan="3")
+                        button#sausageBtn0.btn Add All Images
+                  tr
+                     td 
+                       button#sausageBtn1.btn Group 1
+                     td
+                       button#sausageBtn2.btn Group 2
+                     td
+                       button#sausageBtn3.btn Group 3
+                  tr
+                     td
+                       button#sausageBtn4.btn Group 4
+                     td
+                       button#sausageBtn5.btn Group 5
+                     td
+                       button#sausageBtn6.btn Group 6
+                  tr
+                     td
+                       button#sausageBtn7.btn Group 7
+                     td
+                       button#sausageBtn8.btn Group 8
+                     td
+                       button#sausageBtn9.btn Group 9
+           
          div#bagel
             "shmorgasbord"
