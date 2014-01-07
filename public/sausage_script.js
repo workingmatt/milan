@@ -4,13 +4,14 @@ var socket = io.connect();
 function sausageSqueeze(num){
 	console.log("sausageSqueeze"+num+" pressed");
 	$('#sausage').append(".");
-	socket.emit('message');
+	socket.emit('message', num);
 }
 
 //beginning of init function
 $(function(){
 
-$('#sausageBtn0').click(function(){sausageSqueeze(1);});
+$('#sausageBtnA').click(function(){sausageSqueeze(0);});
+$('#sausageBtnB').click(function(){sausageSqueeze(100);});
 
 $('#sausageBtn1').click(function(){sausageSqueeze(1);});
 $('#sausageBtn2').click(function(){sausageSqueeze(2);});
