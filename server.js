@@ -1,11 +1,19 @@
 var express = require('express'); 
 var app = express();
-var http = require('http');
-var server = http.createServer(app);
+var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 var jade = require('jade');
 var clients = [];
 var sausage = require('./sausage');
+
+//redis allows sockets across multiple instances in a cluster of threads through pm2
+var RedisStore = require('socket.io/lib/stores/redis');
+var redis = require('socket.io/node_modules/redis');
+io.set('store', new RedisStore({
+  redisPub: redis.createClient(),
+  redisSub: redis.createClient(),
+  redisClient: redis.createClient()
+}));
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
