@@ -21,7 +21,7 @@ function addImage(imgStr, inc) {
 
     imgInc.src = (imgStr);
     imgInc.alt = ('imgStr');
-    imgInc.width = 128/(1+(inc%4));
+    imgInc.width = 256/(1+(inc%4));
 
     $('<div id="item.w" data-i="'+(i+1)+'">')
       .append(imgInc)
@@ -29,33 +29,30 @@ function addImage(imgStr, inc) {
   }
 
 function removeImage(removeNum) {
+  i=0;
   switch(removeNum){
     case 0: location.reload();break;
     case 1: $('#thegrid div[data-i=1]').remove();break;
     case 2: $('#thegrid div[data-i=2]').remove();break;
     case 3: $('#thegrid div[data-i=3]').remove();break;
     case 4: 
-      $('#thegrid div[data-i=1]').remove();
-      $('#thegrid div[data-i=3]').remove();
-      $('#thegrid div[data-i=5]').remove();
-      $('#thegrid div[data-i=7]').remove();
-      $('#thegrid div[data-i=9]').remove();
-      $('#thegrid div[data-i=11]').remove();
-      $('#thegrid div[data-i=13]').remove();
-      $('#thegrid div[data-i=15]').remove();
-      $('#thegrid div[data-i=17]').remove();
-      $('#thegrid div[data-i=19]').remove();
-      $('#thegrid div[data-i=21]').remove();
-      $('#thegrid div[data-i=23]').remove();
-      $('#thegrid div[data-i=25]').remove();
-      $('#thegrid div[data-i=27]').remove();
-      $('#thegrid div[data-i=29]').remove();break;
-    case 5: 
-      $('#thegrid div[data-i=5]').remove();
-      $('#thegrid div[data-i=22]').remove();
-      $('#thegrid div[data-i=29]').remove();
-      $('#thegrid div[data-i=17]').remove();
-      $('#thegrid div[data-i=31]').remove();break;
+        //this might work if I change the filename to match the order and all intervals are the same
+        intervalID = setInterval(function() {
+          i++;
+          if(i%2 ==1) {
+            $('#thegrid div[data-i='+i+']').remove();
+          };
+          if(i>31) {
+            clearInterval(intervalID);
+          };
+        }, 100);  break;
+    case 5:
+        //This is the way to auto-script removal of the images (3s20f = 3833 ms)
+        setTimeout(function () {$('#thegrid div[data-i=5]').remove();},500);
+        setTimeout(function () {$('#thegrid div[data-i=22]').remove();},1000);
+        setTimeout(function () {$('#thegrid div[data-i=29]').remove();},1500);
+        setTimeout(function () {$('#thegrid div[data-i=17]').remove();},2000);
+        setTimeout(function () {$('#thegrid div[data-i=31]').remove();},2500);break;
     case 6: 
       $('#thegrid div[data-i=2]').remove();
       $('#thegrid div[data-i=4]').remove();
@@ -151,6 +148,7 @@ $(function() {
 
   //listen for window resize when bkgd is hidden during rejig
   $(window).resize(debouncer(function(){
+    $('#bgwash').height($(window).height());
     if (backgroundShowing) {
       $("#bgimage").css({opacity: 0});
     
