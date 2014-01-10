@@ -6,7 +6,7 @@ var jade = require('jade');
 var clients = [];
 var sausage = require('./sausage');
 
-//redis allows sockets across multiple instances in a cluster of threads through pm2
+//redis allows IPC through sockets for multiple instances in a cluster of threads managed by pm2
 var RedisStore = require('socket.io/lib/stores/redis');
 var redis = require('socket.io/node_modules/redis');
 io.set('store', new RedisStore({
@@ -27,10 +27,8 @@ app.get('/', function(req, res){
 });
 
 app.use(sausage);
-server.listen(3000);
+server.listen(2014);
 
-//https://github.com/visionmedia/express/wiki/Migrating-from-2.x-to-3.x
-//http.createServer(app).listen(3000);
 
 io.sockets.on('connection', function (socket) {
 

@@ -92,13 +92,11 @@ function debouncer( func , timeout ) {
 
 //called once when the page is refreshed from function() below
 function loadGridImages(numImages) { 
-  //$('#thegrid').remove('#item.w');
   i=0;
   console.log('Loading '+numImages+' images');
-  //$('#thegrid').has('div').detach("*");
   
   for(i=0;i<numImages;i++){
-    var imgStr = "images/"+(i+1)+".png";
+    var imgStr = "images/p"+(i+1)+".png";
     addImage(imgStr, i);
   }
   $('#thegrid').masonry();
