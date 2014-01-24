@@ -1,6 +1,7 @@
 #Node modules to be installed with npm install using package.json
 node_modules/
 redis-2.8.3/
+*.tar.gz
 *.log
 *.rdb
 
