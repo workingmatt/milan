@@ -22,4 +22,5 @@ $('#sausageBtn6').click(function(){sausageSqueeze(6);});
 $('#sausageBtn7').click(function(){sausageSqueeze(7);});
 $('#sausageBtn8').click(function(){sausageSqueeze(8);});
 $('#sausageBtn9').click(function(){sausageSqueeze(9);});
+$('#sausageBtn10').click(function(){sausageSqueeze(10);});
 }); //end of init function

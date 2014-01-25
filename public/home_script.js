@@ -2,7 +2,10 @@
 var imgCount = 0;
 var socket = io.connect();
 var backgroundShowing = 0;
+var slidesShowing = 0;
 var totalImages = 15;
+var totalSlides = 33;
+var currentSlide = 1;
 
 function showImage(imgSrc, divName) {
     var img = document.createElement("img");
@@ -50,6 +53,23 @@ function loadGridImages(numImages) {
   })
 }
 
+function loadSlideshowImages(num) {
+  i=0;
+  console.log('Loading '+num+' slides');
+  
+  for(i=0;i<num;i++){
+    var imgInc = document.createElement("img");
+    imgInc.src = ("images/s/s_page_"+(i+1)+".png");
+    imgInc.alt = "images/s/s_page_"+(i+1)+".png";
+  }
+  //$('#thegrid').masonry();
+
+  imagesLoaded('#thegrid', function() {
+    console.log("Loaded Slides");
+    });
+
+   
+}
 function loadBkgdImage() {
   console.log('Loading Background Image');
   showBackgroundImage(250);
@@ -95,26 +115,21 @@ function removeImage(removeNum) {
         setTimeout(function () {$('#thegrid div[data-i=15]').remove();},58000);
         setTimeout(function () {$("#bgimage").animate({opacity: 1},12000);}, 50000);break;
     case 6: 
-      $('#thegrid div[data-i=2]').remove();
-      $('#thegrid div[data-i=4]').remove();
-      $('#thegrid div[data-i=6]').remove();
-      $('#thegrid div[data-i=8]').remove();
-      $('#thegrid div[data-i=10]').remove();
-      $('#thegrid div[data-i=12]').remove();
-      $('#thegrid div[data-i=14]').remove();
-      $('#thegrid div[data-i=16]').remove();
-      $('#thegrid div[data-i=18]').remove();
-      $('#thegrid div[data-i=20]').remove();
-      $('#thegrid div[data-i=22]').remove();
-      $('#thegrid div[data-i=24]').remove();
-      $('#thegrid div[data-i=26]').remove();
-      $('#thegrid div[data-i=28]').remove();
-      $('#thegrid div[data-i=30]').remove();break;
+      console.lot("Button 6 pressed");break;
     
     //case 7: $('#thegrid div[data-i=7]').remove();break;
-    case 7: $("#thegrid").animate({opacity: 1}, 1000);
-    case 8: $('#thegrid div[data-i=8]').remove();break;
-    case 9: $('#thegrid div').remove();break;
+    case 7: 
+      console.log("Previous Slide");
+      $('#slides img:last-child').remove();
+      showSlide((currentSlide>1)?--currentSlide:currentSlide);
+      break;
+    case 8: showSlideshow();break;
+    case 9: hideSlideshow();break;
+    case 10: 
+      console.log("Next slide");
+      $('#slides img:last-child').remove();
+      showSlide((currentSlide<totalSlides)?++currentSlide:currentSlide);
+      break;
     //Note: transition remove setTimeout(function () {$('#thegrid' div[data-i=n]').animate({height:0, opacity: 0}, 3000);},absTime);
   }
 
@@ -143,12 +158,26 @@ function showBackgroundImage(fadeInTime) {
   }
 }
 
-function showSlides() {
-  console.log("showSlides");
-  $("#slides").ready(function(){showImage('/images/p1.png', "#slides")});
-  $("#slides").animate({opacity: 0.6}, 1000);
+function showSlideshow() {
+  console.log("showSlideshow");
+  slidesShowing = 1;
+  $('#slides img:last-child').delay(1000).remove();
+  showSlide(currentSlide);
+  $("#bgimage").css({opacity: 0});
+  $("#slides").animate({opacity: 1}, 1000);
 }
 
+function hideSlideshow() {
+  slidesShowing = 0;
+  console.log("hideSlideshow");
+  $("#slides").animate({opacity: 0}, 1000);
+  $("#bgimage").delay(500).animate({opacity: 1}, 2000);
+}
+
+function showSlide(slideNum) {
+  console.log("Show Slide ", slideNum);
+  $("#slides").ready(function(){showImage('/images/s/s_page_'+slideNum+'.png', "#slides")});
+}
 //Listen for the message containing the number of the button in sausage_script.js
 socket.on('message', function(message){
   if(message<100){
@@ -166,29 +195,39 @@ $(function() {
     $('#bgwash').height($(window).height());
     $('#bgimage').height($(window).height());
     $('#container').height($(window).height());
-    $('#slides').height($(window).height());
+    $('#slides').height($(window).height())
+      .css({opacity: 0});
   });
-  showSlides();
+  
   //add images to #thegrid with id item.w
   //loadGridImages(totalImages);
   loadBkgdImage();
   loadGridImages(totalImages);
+  loadSlideshowImages(totalSlides);
   
   //listen for window resize when bkgd is hidden during rejig
   $(window).resize(debouncer(function(){
     $('#bgwash').height($(window).height());
-    $('#slides').height($(window).height());
 
       $('#bgimage img:last-child').delay(300).remove();
     if (backgroundShowing) {
-      $("#bgimage").css({opacity: 0});
-    
-      $('#bgimage img:last-child').delay(300).remove();
+      $("#bgimage").delay(500).css({opacity: 0});
+      
+      $('#bgimage img:last-child').delay(500).remove();
+
       showImage('/images/bkgd.png', "#bgimage");
       $("#bgimage").css({top: '10%'});
-
-      $("#bgimage").delay(1*1000).animate({opacity: 1}, 1000);
+      $("#bgimage").animate({opacity: 1}, 1000);
     }
+    if (slidesShowing) {
+      $('#slides').height($(window).height());
+      $('#slides img:last-child').delay(300).remove();
+      $("#slides").delay(500).css({opacity: 0});
+      $('#slides img:last-child').delay(600).remove();
+      showSlide(currentSlide);
+      $("#slides").animate({opacity: 1}, 1000);
+    }
+    
   }));
   //alert( $('img[src="images/p1.png"]').length);
   $('#thegrid').masonry();
