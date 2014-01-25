@@ -61,14 +61,23 @@ function loadSlideshowImages(num) {
     var imgInc = document.createElement("img");
     imgInc.src = ("images/s/s_page_"+(i+1)+".png");
     imgInc.alt = "images/s/s_page_"+(i+1)+".png";
+
+    if (i < 9) {
+      console.log(i+" **less than 10");
+      imgInc.src = ("images/s/s_page_0"+(i+1)+".png");
+      imgInc.alt = "images/s/s_page_0"+(i+1)+".png";
+    }
+  else {
+      console.log(i+" **more than 10");
+      imgInc.src = ("images/s/s_page_"+(i+1)+".png");
+      imgInc.alt = "images/s/s_page_"+(i+1)+".png";
+    }
   }
   //$('#thegrid').masonry();
 
   imagesLoaded('#thegrid', function() {
     console.log("Loaded Slides");
     });
-
-   
 }
 function loadBkgdImage() {
   console.log('Loading Background Image');
@@ -176,7 +185,13 @@ function hideSlideshow() {
 
 function showSlide(slideNum) {
   console.log("Show Slide ", slideNum);
-  $("#slides").ready(function(){showImage('/images/s/s_page_'+slideNum+'.png', "#slides")});
+  if (slideNum<10) {
+    console.log("less than ten");
+    $("#slides").ready(function(){showImage('/images/s/s_page_0'+slideNum+'.png', "#slides")});
+  } else {
+    console.log("more than ten");
+    $("#slides").ready(function(){showImage('/images/s/s_page_'+slideNum+'.png', "#slides")});
+  }
 }
 //Listen for the message containing the number of the button in sausage_script.js
 socket.on('message', function(message){
