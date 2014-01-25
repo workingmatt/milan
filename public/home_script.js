@@ -50,6 +50,12 @@ function loadGridImages(numImages) {
   })
 }
 
+function loadBkgdImage() {
+  console.log('Loading Background Image');
+  showBackgroundImage(250);
+
+}
+
 function removeImage(removeNum) {
   i=0;
   switch(removeNum){
@@ -70,12 +76,12 @@ function removeImage(removeNum) {
         }, 100);  break;
     case 5:
         //The full show, absolute times from button click
+        $("#bgimage").animate({opacity: 0}, 250);
         $("#thegrid").animate({opacity: 1}, 1000);
-        setTimeout(function () {$('#thegrid div[data-i=1]').animate({opacity: 0}, 1000);},4000);
-        setTimeout(function () {$('#thegrid div[data-i=2]').animate({height: 0, opacity: 0}, 3000);},8000);
-        setTimeout(function () {$('#thegrid div[data-i=3]').animate({height: 0, opacity: 0}, 3000);},12000);
-        setTimeout(function () {$('#thegrid div[data-i=4]').animate({height: 0}, 3000)},16000);
-        setTimeout(function () {$('#thegrid div[data-i=4]').remove();},19000);
+        setTimeout(function () {$('#thegrid div[data-i=1]').remove();},4000);
+        setTimeout(function () {$('#thegrid div[data-i=2]').remove();},8000);
+        setTimeout(function () {$('#thegrid div[data-i=3]').remove();},12000);
+        setTimeout(function () {$('#thegrid div[data-i=4]').remove();},16000);
         setTimeout(function () {$('#thegrid div[data-i=5]').remove();},19000);
         setTimeout(function () {$('#thegrid div[data-i=6]').remove();},23000);
         setTimeout(function () {$('#thegrid div[data-i=7]').remove();},27000);
@@ -87,7 +93,7 @@ function removeImage(removeNum) {
         setTimeout(function () {$('#thegrid div[data-i=13]').remove();},50000);
         setTimeout(function () {$('#thegrid div[data-i=14]').remove();},55000);
         setTimeout(function () {$('#thegrid div[data-i=15]').remove();},58000);
-        setTimeout(function () {showBackgroundImage(60000);}, 100);break;
+        setTimeout(function () {$("#bgimage").animate({opacity: 1},12000);}, 50000);break;
     case 6: 
       $('#thegrid div[data-i=2]').remove();
       $('#thegrid div[data-i=4]').remove();
@@ -109,6 +115,7 @@ function removeImage(removeNum) {
     case 7: $("#thegrid").animate({opacity: 1}, 1000);
     case 8: $('#thegrid div[data-i=8]').remove();break;
     case 9: $('#thegrid div').remove();break;
+    //Note: transition remove setTimeout(function () {$('#thegrid' div[data-i=n]').animate({height:0, opacity: 0}, 3000);},absTime);
   }
 
   //$('#thegrid div:last-child').remove();
@@ -136,6 +143,12 @@ function showBackgroundImage(fadeInTime) {
   }
 }
 
+function showSlides() {
+  console.log("showSlides");
+  $("#slides").ready(function(){showImage('/images/p1.png', "#slides")});
+  $("#slides").animate({opacity: 0.6}, 1000);
+}
+
 //Listen for the message containing the number of the button in sausage_script.js
 socket.on('message', function(message){
   if(message<100){
@@ -153,15 +166,20 @@ $(function() {
     $('#bgwash').height($(window).height());
     $('#bgimage').height($(window).height());
     $('#container').height($(window).height());
+    $('#slides').height($(window).height());
   });
-
+  showSlides();
   //add images to #thegrid with id item.w
-  //currently loops round to try different numbers of images
+  //loadGridImages(totalImages);
+  loadBkgdImage();
   loadGridImages(totalImages);
-
+  
   //listen for window resize when bkgd is hidden during rejig
   $(window).resize(debouncer(function(){
     $('#bgwash').height($(window).height());
+    $('#slides').height($(window).height());
+
+      $('#bgimage img:last-child').delay(300).remove();
     if (backgroundShowing) {
       $("#bgimage").css({opacity: 0});
     
