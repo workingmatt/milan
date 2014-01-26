@@ -25,7 +25,7 @@ function addImage(imgStr, inc) {
 
     imgInc.src = (imgStr);
     imgInc.alt = ('imgStr');
-    imgInc.width = 256/(1+(inc%4));
+    imgInc.width = 220/(1+(inc%3/3));
 
     $('<div id="item.w" data-i="'+(i+1)+'">')
       .append(imgInc)
@@ -46,8 +46,8 @@ function loadGridImages(numImages) {
   imagesLoaded('#thegrid', function() {
     $('#thegrid').masonry({
       itemSelector: 'item',
-      columnWidth: (1/3),//(containerWidth/50),
-      gutter: 6
+      columnWidth: ($(window).width())/50,
+      gutter: 12
     });
 
   })
