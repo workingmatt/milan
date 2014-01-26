@@ -6,6 +6,9 @@ var slidesShowing = 0;
 var totalImages = 15;
 var totalSlides = 33;
 var currentSlide = 1;
+var browserWidth = $(window).width();
+var browserHeight= $(window).height();
+
 
 function showImage(imgSrc, divName) {
     var img = document.createElement("img");
@@ -26,7 +29,8 @@ function addImage(imgStr, inc) {
     imgInc.src = (imgStr);
     imgInc.alt = ('imgStr');
     imgInc.width = 220/(1+(inc%3/3));
-
+    //imgInc.width depends on portrait or landscape
+    
     $('<div id="item.w" data-i="'+(i+1)+'">')
       .append(imgInc)
       .appendTo('#thegrid');
@@ -63,12 +67,10 @@ function loadSlideshowImages(num) {
     imgInc.alt = "images/s/s_page_"+(i+1)+".png";
 
     if (i < 9) {
-      console.log(i+" **less than 10");
       imgInc.src = ("images/s/s_page_0"+(i+1)+".png");
       imgInc.alt = "images/s/s_page_0"+(i+1)+".png";
     }
   else {
-      console.log(i+" **more than 10");
       imgInc.src = ("images/s/s_page_"+(i+1)+".png");
       imgInc.alt = "images/s/s_page_"+(i+1)+".png";
     }
@@ -105,7 +107,7 @@ function removeImage(removeNum) {
         }, 100);  break;
     case 5:
         //The full show, absolute times from button click
-        $("#bgimage").animate({opacity: 0}, 250);
+        $("#bgimage").animate({opacity: 0}, 250);backgroundShowing=0;
         $("#thegrid").animate({opacity: 1}, 1000);
         setTimeout(function () {$('#thegrid div[data-i=1]').remove();},4000);
         setTimeout(function () {$('#thegrid div[data-i=2]').remove();},8000);
@@ -173,6 +175,8 @@ function showSlideshow() {
   $('#slides img:last-child').delay(1000).remove();
   showSlide(currentSlide);
   $("#bgimage").css({opacity: 0});
+  backgroundShowing= 0;
+  slidesShowing = 1;
   $("#slides").animate({opacity: 1}, 1000);
 }
 
@@ -181,17 +185,36 @@ function hideSlideshow() {
   console.log("hideSlideshow");
   $("#slides").animate({opacity: 0}, 1000);
   $("#bgimage").delay(500).animate({opacity: 1}, 2000);
+  backgroundShowing = 1;
+  slidesShowing = 0;
 }
 
 function showSlide(slideNum) {
   console.log("Show Slide ", slideNum);
   if (slideNum<10) {
-    console.log("less than ten");
-    $("#slides").ready(function(){showImage('/images/s/s_page_0'+slideNum+'.png', "#slides")});
+    imgSrc = ('/images/s/s_page_0'+slideNum+'.png');
+    console.log("less than ten " + imgSrc);
+    
   } else {
-    console.log("more than ten");
-    $("#slides").ready(function(){showImage('/images/s/s_page_'+slideNum+'.png', "#slides")});
+    imgSrc = ('/images/s/s_page_'+slideNum+'.png');
+    console.log("more than ten" + imgSrc);
+    //$("#slides").ready(function(){showImage('/images/s/s_page_'+slideNum+'.png', "#slides")});
   }
+  
+    var img = document.createElement("img");
+    img.src = imgSrc;
+    img.alt = "alt text";
+
+  if (browserWidth >= browserHeight) { //landscape
+    console.log("Landscape #197");
+    img.height = browserHeight;
+  } else { //portrait
+    console.log("Portrait #199");
+    img.width = browserWidth;
+  }
+
+  $('#slides').prepend(img); 
+  //$("slides").css({});
 }
 //Listen for the message containing the number of the button in sausage_script.js
 socket.on('message', function(message){
@@ -220,20 +243,22 @@ $(function() {
   loadGridImages(totalImages);
   loadSlideshowImages(totalSlides);
   
-  //listen for window resize when bkgd is hidden during rejig
+  //listen for window resize when bkgd is hidden during rejig alt text
+
   $(window).resize(debouncer(function(){
     $('#bgwash').height($(window).height());
+    $('#bgimage img:last-child').delay(300).remove();
+    browserWidth = $(window).width();
+    browserHeight= $(window).height();
 
-      $('#bgimage img:last-child').delay(300).remove();
     if (backgroundShowing) {
       $("#bgimage").delay(500).css({opacity: 0});
-      
       $('#bgimage img:last-child').delay(500).remove();
-
       showImage('/images/bkgd.png', "#bgimage");
       $("#bgimage").css({top: '10%'});
       $("#bgimage").animate({opacity: 1}, 1000);
     }
+
     if (slidesShowing) {
       $('#slides').height($(window).height());
       $('#slides img:last-child').delay(300).remove();
