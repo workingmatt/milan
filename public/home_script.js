@@ -109,22 +109,22 @@ case 5:
 //The full show, absolute times from button click
 $("#bgimage").animate({opacity: 0}, 250);backgroundShowing=0;
 $("#thegrid").animate({opacity: 1}, 1000);
-setTimeout(function () {$('#thegrid div[data-i=1]').remove();},4000);
-setTimeout(function () {$('#thegrid div[data-i=2]').remove();},8000);
-setTimeout(function () {$('#thegrid div[data-i=3]').remove();},12000);
-setTimeout(function () {$('#thegrid div[data-i=4]').remove();},16000);
-setTimeout(function () {$('#thegrid div[data-i=5]').remove();},19000);
-setTimeout(function () {$('#thegrid div[data-i=6]').remove();},23000);
-setTimeout(function () {$('#thegrid div[data-i=7]').remove();},27000);
-setTimeout(function () {$('#thegrid div[data-i=8]').remove();},31000);
-setTimeout(function () {$('#thegrid div[data-i=9]').remove();},35000);
-setTimeout(function () {$('#thegrid div[data-i=10]').remove();},39000);
-setTimeout(function () {$('#thegrid div[data-i=11]').remove();},43000);
-setTimeout(function () {$('#thegrid div[data-i=12]').remove();},47000);
-setTimeout(function () {$('#thegrid div[data-i=13]').remove();},50000);
-setTimeout(function () {$('#thegrid div[data-i=14]').remove();},55000);
-setTimeout(function () {$('#thegrid div[data-i=15]').remove();},58000);
-setTimeout(function () {$("#bgimage").animate({opacity: 1},12000);}, 50000);break;
+setTimeout(function () {$('#thegrid div[data-i=1]').remove();$('#thegrid').masonry();},4000);
+setTimeout(function () {$('#thegrid div[data-i=2]').remove();$('#thegrid').masonry();},8000);
+setTimeout(function () {$('#thegrid div[data-i=3]').remove();$('#thegrid').masonry();},12000);
+setTimeout(function () {$('#thegrid div[data-i=4]').remove();$('#thegrid').masonry();},16000);
+setTimeout(function () {$('#thegrid div[data-i=5]').remove();$('#thegrid').masonry();},19000);
+setTimeout(function () {$('#thegrid div[data-i=6]').remove();$('#thegrid').masonry();},23000);
+setTimeout(function () {$('#thegrid div[data-i=7]').remove();$('#thegrid').masonry();},27000);
+setTimeout(function () {$('#thegrid div[data-i=8]').remove();$('#thegrid').masonry();},31000);
+setTimeout(function () {$('#thegrid div[data-i=9]').remove();$('#thegrid').masonry();},35000);
+setTimeout(function () {$('#thegrid div[data-i=10]').remove();$('#thegrid').masonry();},39000);
+setTimeout(function () {$('#thegrid div[data-i=11]').remove();$('#thegrid').masonry();},43000);
+setTimeout(function () {$('#thegrid div[data-i=12]').remove();$('#thegrid').masonry();},47000);
+setTimeout(function () {$('#thegrid div[data-i=13]').remove();$('#thegrid').masonry();},50000);
+setTimeout(function () {$('#thegrid div[data-i=14]').remove();$('#thegrid').masonry();},55000);
+setTimeout(function () {$('#thegrid div[data-i=15]').remove();$('#thegrid').masonry();},58000);
+setTimeout(function () {$("#bgimage").animate({opacity: 1},12000);$('#thegrid').masonry();}, 50000);break;
 case 6: 
 console.lot("Button 6 pressed");break;
 
@@ -251,7 +251,7 @@ $(function() {
       if (viewportmeta) {
           viewportmeta.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0';
           document.body.addEventListener('gesturestart', function () {
-              viewportmeta.content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
+              viewportmeta.content = 'width=device-width, initial-scale=1.0, minimum-scale=0.25, maximum-scale=1.6';
           }, false);
       }
   }
