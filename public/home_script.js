@@ -63,8 +63,8 @@ console.log('Loading '+num+' slides');
 
 for(i=0;i<num;i++){
 var imgInc = document.createElement("img");
-imgInc.src = ("images/s/s_page_"+(i+1)+".png");
-imgInc.alt = "images/s/s_page_"+(i+1)+".png";
+//imgInc.src = ("images/s/s_page_"+(i+1)+".png");
+//imgInc.alt = "images/s/s_page_"+(i+1)+".png";
 
 if (i < 9) {
 imgInc.src = ("images/s/s_page_0"+(i+1)+".png");
@@ -245,8 +245,18 @@ $(function() {
   loadGridImages(totalImages);
   loadSlideshowImages(totalSlides);
   
-  //listen for window resize when bkgd is hidden during rejig alt text
+  
+  if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) {
+      var viewportmeta = document.querySelector('meta[name="viewport"]');
+      if (viewportmeta) {
+          viewportmeta.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0';
+          document.body.addEventListener('gesturestart', function () {
+              viewportmeta.content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
+          }, false);
+      }
+  }
 
+  //listen for window resize when bkgd is hidden during rejig alt text
   $(window).resize(debouncer(function(){
     $('#bgwash').height($(window).height());
     $('#bgimage img:last-child').delay(300).remove();
