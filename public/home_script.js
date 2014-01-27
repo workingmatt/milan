@@ -37,6 +37,7 @@ $('<div id="item.w" data-i="'+(i+1)+'">')
 }
 
 //called once when the page is refreshed from function() below
+//add images to #thegrid with id item.w
 function loadGridImages(numImages) { 
 i=0;
 console.log('Loading '+numImages+' images');
@@ -208,6 +209,7 @@ function showSlide(slideNum) {
   if (browserWidth >= browserHeight) { //landscape
     console.log("Landscape #197");
     img.height = browserHeight;
+    img.width = 100%;
   } else { //portrait
     console.log("Portrait #199");
     img.width = browserWidth;
@@ -229,8 +231,6 @@ socket.on('message', function(message){
 $(function() {
 
   //set height of content divs given the client's window
-
-  //$(document).ready(function(){
   $(window).load(function(){
     $('#bgwash').height($(window).height());
     $('#bgimage').height($(window).height());
@@ -239,8 +239,6 @@ $(function() {
       .css({opacity: 0});
   });
   
-  //add images to #thegrid with id item.w
-  //loadGridImages(totalImages);
   loadBkgdImage();
   loadGridImages(totalImages);
   loadSlideshowImages(totalSlides);
