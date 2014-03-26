@@ -10,7 +10,3 @@ app.configure(function() {
 app.get('/sausage', function(req, res){
   res.render('sausage');
 });
-
-//$('#helloBtn').click(function() {console.log("prick")});
-
-
